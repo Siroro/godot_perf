@@ -32,11 +32,13 @@
 
 #include "core/error/error_macros.h"
 #include "core/templates/safe_refcount.h"
+#if defined(_WIN32) && !defined(MINGW_ENABLED)
+#include "thirdparty/mimalloc/include/mimalloc-override.h"
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 void *operator new(size_t p_size, const char *p_description) {
 	return Memory::alloc_static(p_size, false);
 }
